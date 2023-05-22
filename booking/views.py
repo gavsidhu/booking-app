@@ -82,8 +82,8 @@ def register(request):
         response = JsonResponse(response_data)
 
         # Set the csrf and session id cookies
-        response.set_cookie('csrftoken', csrf_cookie)
-        response.set_cookie('sessionid', sessionid_cookie)
+        response.set_cookie('csrftoken', csrf_cookie, secure=True, samesite='None')
+        response.set_cookie('sessionid', sessionid_cookie, secure=True, samesite='None')
 
         return response
 
@@ -99,9 +99,18 @@ def auth_login(request):
         password = data.get('password')
 
         user = authenticate(request, username=email, password=password)
+        csrf_cookie = request.META['CSRF_COOKIE']
+        sessionid_cookie = request.session.session_key
         if user is not None:
             login(request, user)
-            return JsonResponse({'status': 'success', "user_id": user.id, "email": user.email, "username": user.username, "first_name": user.first_name, "last_name": user.last_name, })
+            response_data = {'status': 'success', "user_id": user.id, "email": user.email, "username": user.username, "first_name": user.first_name, "last_name": user.last_name, }
+            
+            response = JsonResponse(response_data)
+
+            response.set_cookie('csrftoken', csrf_cookie, secure=True, samesite='None')
+            response.set_cookie('sessionid', sessionid_cookie, secure=True, samesite='None')
+
+            return response
         else:
             return JsonResponse({'status': 'failure'})
 
