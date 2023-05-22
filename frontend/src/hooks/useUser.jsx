@@ -38,6 +38,7 @@ export const UserProvider = ({ children }) => {
         },
         {
           headers: {
+            Origin: "https://scheduling-platform.vercel.app",
             "Content-Type": "application/json",
           },
           withCredentials: true,
