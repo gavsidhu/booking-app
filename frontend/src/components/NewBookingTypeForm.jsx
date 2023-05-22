@@ -43,10 +43,6 @@ export default function NewBookingTypeForm() {
       `${process.env.REACT_APP_BACKEND_URl}/api/booking_type/`,
       updatedFormData,
       {
-        headers: {
-          "X-CSRFToken": csrfToken,
-          "Content-Type": "application/json",
-        },
         withCredentials: true,
       }
     );
