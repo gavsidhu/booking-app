@@ -74,7 +74,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     "https://scheduling-platform.onrender.com",
@@ -84,8 +84,12 @@ CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:3000',
     'http://127.0.0.1:8000'
 ]
+
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.127.0.0.1', 'http://localhost:3000, "https://scheduling-platform.onrender.com','https://scheduling-platform.vercel.app'
+    "https://scheduling-platform.onrender.com",
+    'https://scheduling-platform.vercel.app',
+    'https://*.127.0.0.1',
+    'http://localhost:3000'
 ]
 
 CSRF_COOKIE_HTTPONLY = False
