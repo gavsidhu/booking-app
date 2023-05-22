@@ -58,7 +58,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'booking.User'
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    'booking_app.cors_middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
