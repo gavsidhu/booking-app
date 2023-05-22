@@ -124,7 +124,6 @@ export const UserProvider = ({ children }) => {
       {},
       {
         headers: {
-          "X-CSRFToken": csrfToken,
           "Content-Type": "application/json",
         },
         withCredentials: true,
