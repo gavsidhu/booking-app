@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['scheduling-platform.onrender.com']
 
 
 # Application definition
@@ -77,13 +77,14 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
+    "scheduling-platform.onrender.com"
     'http://localhost:3000',
     'http://localhost:8000',
     'http://127.0.0.1:3000',
     'http://127.0.0.1:8000'
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.127.0.0.1', 'http://localhost:3000'
+    'https://*.127.0.0.1', 'http://localhost:3000, "scheduling-platform.onrender.com'
 ]
 
 CSRF_COOKIE_HTTPONLY = False
