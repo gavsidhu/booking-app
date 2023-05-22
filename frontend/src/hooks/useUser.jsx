@@ -134,6 +134,7 @@ export const UserProvider = ({ children }) => {
     // remove cookies
     cookies.remove("csrftoken");
     cookies.remove("user");
+    cookies.remove("sessionid");
     setUser(null);
     navigate("/");
   };
