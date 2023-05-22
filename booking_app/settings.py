@@ -88,10 +88,10 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.127.0.0.1', 'http://localhost:3000, "https://scheduling-platform.onrender.com','https://scheduling-platform.vercel.app'
 ]
 
-CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SAMESITE = None
 
-SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = None
 
 ROOT_URLCONF = 'booking_app.urls'
