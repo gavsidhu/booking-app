@@ -100,8 +100,8 @@ SESSION_COOKIE_SAMESITE = 'None'
 
 CSRF_COOKIE_PATH = '/'
 
-CSRF_COOKIE_DOMAIN = '.vercel.app'
-SESSION_COOKIE_DOMAIN = '.vercel.app'
+CSRF_COOKIE_DOMAIN = '.scheduling-platform.vercel.app'
+SESSION_COOKIE_DOMAIN = '.scheduling-platform.vercel.app'
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
