@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['scheduling-platform.onrender.com','scheduling-platform.vercel.app',"localhost", "scheduling-platform-bn3l.vercel.app", '.vercel.app']
 
