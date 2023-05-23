@@ -110,6 +110,8 @@ def auth_login(request):
 
 
 @csrf_exempt
+@authentication_classes([])
+@permission_classes([AllowAny])
 @api_view(['POST'])
 def auth_logout(request):
     logout(request)
