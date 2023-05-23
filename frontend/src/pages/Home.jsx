@@ -7,6 +7,7 @@ import useUser from "../hooks/useUser";
 import UpdateModal from "../components/UpdateModel";
 import BookingsTable from "../components/BookingsTable";
 import Cookies from "universal-cookie";
+import { getCookie } from "../utils/getCookie";
 
 const cookies = new Cookies();
 
