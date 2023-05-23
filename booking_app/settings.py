@@ -86,6 +86,11 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_HEADERS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://scheduling-platform.vercel.app",
+    'https://scheduling-platform-bn3l.vercel.app'
+]
+
 ROOT_URLCONF = 'booking_app.urls'
 
 TEMPLATES = [
