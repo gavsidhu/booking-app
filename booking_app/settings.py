@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['scheduling-platform.onrender.com','scheduling-platform.vercel.app',"localhost", "scheduling-platform-bn3l.vercel.app"]
+ALLOWED_HOSTS = ['scheduling-platform.onrender.com','scheduling-platform.vercel.app',"localhost", "scheduling-platform-bn3l.vercel.app", '.vercel.app']
 
 
 # Application definition

@@ -2,7 +2,8 @@
   "builds": [
     {
       "src": "booking_app/wsgi.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "runtime": "python3.11.3" }
     }
   ],
   "routes": [
