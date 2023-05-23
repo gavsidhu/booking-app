@@ -4,7 +4,6 @@ import PageHeading from "../components/PageHeading";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import useUser from "../hooks/useUser";
-import UpdateModal from "../components/UpdateModel";
 import BookingsTable from "../components/BookingsTable";
 import Cookies from "universal-cookie";
 
@@ -14,7 +13,6 @@ export default function Home() {
   const { user } = useUser();
   const navigate = useNavigate();
   const [bookingTypes, setBookingTypes] = useState([]);
-  const [showModal, setShowModal] = useState(false);
   const [bookingCardId, setBookingCardId] = useState();
   const [selectedBookingType, setSelectedBookingType] = useState([]);
 
@@ -38,22 +36,17 @@ export default function Home() {
   }, []);
 
   const handleCardClick = async (id) => {
-    console.log(id);
     setBookingCardId(id);
     const bookingType = bookingTypes.filter(
       (bookingType) => bookingType.id === id
     );
     setSelectedBookingType(bookingType[0]);
-    setShowModal(true);
+    navigate(`/update-booking-type/${id}`, {
+      state: bookingType[0],
+    });
   };
   return (
     <>
-      <UpdateModal
-        show={showModal}
-        setShow={setShowModal}
-        id={bookingCardId}
-        bookingType={selectedBookingType}
-      />
       <div className='mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-40 lg:px-8'>
         <PageHeading
           heading='Dashboard'

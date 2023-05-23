@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Settings from "./pages/Settings";
 import Bookings from "./pages/Bookings";
+import UpdateBookingTypeForm from "./components/UpdateBookingTypeForm";
 
 function App() {
   return (
@@ -36,6 +37,12 @@ function App() {
               <Route
                 path='/new-booking-type'
                 element={<NewBookingTypePage />}
+              />
+            </Route>
+            <Route path='/update-booking-type/:id' element={<ProtectedRoute />}>
+              <Route
+                path='/update-booking-type/:id'
+                element={<UpdateBookingTypeForm />}
               />
             </Route>
             <Route path='/settings' element={<ProtectedRoute />}>
