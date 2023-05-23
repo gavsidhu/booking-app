@@ -3,14 +3,13 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .serializer import BookingSerializer, BookingTypeSerializer, UserSerializer
 from .models import Booking, BookingType, User
-from rest_framework.permissions import BasePermission
-from rest_framework.decorators import api_view, permission_classes, action
+from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.permissions import AllowAny
-from django.contrib.auth.decorators import login_required
+from rest_framework.permissions import AllowAny, DjangoModelPermissions
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -18,6 +17,8 @@ from django.core.exceptions import ObjectDoesNotExist
 class BookingView(viewsets.ModelViewSet):
     serializer_class = BookingSerializer
     queryset = Booking.objects.all()
+    authentication_classes=[SessionAuthentication]
+    permission_classes=[DjangoModelPermissions]
 
     def get_queryset(self):
         user_id = self.request.query_params.get('user_id', None)
@@ -30,6 +31,8 @@ class BookingView(viewsets.ModelViewSet):
 class BookingTypeView(viewsets.ModelViewSet):
     serializer_class = BookingTypeSerializer
     queryset = BookingType.objects.all()
+    authentication_classes=[SessionAuthentication]
+    permission_classes=[DjangoModelPermissions]
 
     def get_queryset(self):
         user_id = self.request.query_params.get('user_id', None)
