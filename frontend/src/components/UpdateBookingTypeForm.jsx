@@ -19,8 +19,6 @@ export default function UpdateBookingTypeForm() {
 
   const [formData, setFormData] = useState(state);
 
-  console.log(formData);
-
   const onChange = (e) => {
     setFormData({
       ...formData,
@@ -68,7 +66,7 @@ export default function UpdateBookingTypeForm() {
   };
 
   return (
-    <div className=' py-16 px-6 max-w-3xl mt-16 mx-auto'>
+    <div className='py-16 px-6 max-w-3xl mt-16 mx-auto'>
       <div className='py-12 text-center'>
         <h2 className='text-4xl font-bold dark:text-white'>
           Update booking type

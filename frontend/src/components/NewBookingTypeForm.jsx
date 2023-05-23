@@ -20,7 +20,6 @@ export default function NewBookingTypeForm() {
     payment_required: false,
     color: "#000000",
   });
-  console.log(formData);
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.currentTarget.name]: e.currentTarget.value });
@@ -28,8 +27,6 @@ export default function NewBookingTypeForm() {
 
   const handelSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("user: ", user.userId);
 
     const updatedFormData = {
       ...formData,

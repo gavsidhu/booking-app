@@ -86,7 +86,7 @@ export default function UpdateModal({
           withCredentials: true,
         }
       );
-      console.log(res.data);
+
       setShow(false);
     } catch (error) {
       console.error(error);

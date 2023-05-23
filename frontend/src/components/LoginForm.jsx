@@ -8,7 +8,7 @@ export default function LoginForm() {
   const { login, user } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(user);
+
   useEffect(() => {
     if (user) {
       navigate("/");

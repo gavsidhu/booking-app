@@ -27,7 +27,6 @@ export default function Home() {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data);
         setBookingTypes(response.data);
       })
       .catch((error) => {
@@ -40,7 +39,6 @@ export default function Home() {
     const bookingType = bookingTypes.filter(
       (bookingType) => bookingType.id === id
     );
-    setSelectedBookingType(bookingType[0]);
     navigate(`/update-booking-type/${id}`, {
       state: bookingType[0],
     });

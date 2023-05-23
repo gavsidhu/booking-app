@@ -51,7 +51,7 @@ export const UserProvider = ({ children }) => {
         toast.error("Invalid credentials");
         return;
       }
-      console.log("login data:", response.data);
+
       axios.defaults.headers.common[
         "Authorization"
       ] = `Token ${response.data.token}`;

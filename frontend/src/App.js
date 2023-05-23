@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Settings from "./pages/Settings";
 import Bookings from "./pages/Bookings";
 import UpdateBookingTypeForm from "./components/UpdateBookingTypeForm";
+import ScheduleBookingForm from "./components/ScheduleBookingForm";
 
 function App() {
   return (
@@ -43,6 +44,15 @@ function App() {
               <Route
                 path='/update-booking-type/:id'
                 element={<UpdateBookingTypeForm />}
+              />
+            </Route>
+            <Route
+              path='/:username/bookings/schedule-booking'
+              element={<ProtectedRoute />}
+            >
+              <Route
+                path='/:username/bookings/schedule-booking'
+                element={<ScheduleBookingForm />}
               />
             </Route>
             <Route path='/settings' element={<ProtectedRoute />}>
