@@ -7,7 +7,6 @@ import useUser from "../hooks/useUser";
 import UpdateModal from "../components/UpdateModel";
 import BookingsTable from "../components/BookingsTable";
 import Cookies from "universal-cookie";
-import { getCookie } from "../utils/getCookie";
 
 const cookies = new Cookies();
 
@@ -20,7 +19,7 @@ export default function Home() {
   const [selectedBookingType, setSelectedBookingType] = useState([]);
 
   useEffect(() => {
-    const csrftoken = getCookie("csrftoken");
+    const csrftoken = cookies.get("csrftoken");
     axios
       .get(`${process.env.REACT_APP_BACKEND_URl}/api/booking_type/`, {
         params: { user_id: user.userId },
