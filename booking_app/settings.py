@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -57,9 +57,9 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'booking.User'
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -73,22 +73,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://*.127.0.0.1','https://*.vercel.app', 'http://localhost:3000, "https://scheduling-platform.onrender.com','https://scheduling-platform.vercel.app',
-    'https://scheduling-platform-bn3l.vercel.app'
+CORS_ALLOWED_ORIGINS = [
+    "https://scheduling-platform-bn3l.vercel.app",
+    "https://scheduling-platform.vercel.app",
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "http://127.0.0.1:9000"
 ]
-
-CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = None
-
-SESSION_COOKIE_HTTPONLY = False
-SESSION_COOKIE_SAMESITE = None
-
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False
 
 ROOT_URLCONF = 'booking_app.urls'
 
