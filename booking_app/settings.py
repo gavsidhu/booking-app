@@ -86,7 +86,7 @@ CORS_ORIGIN_WHITELIST = [
     "https://scheduling-platform-bn3l.vercel.app"
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.127.0.0.1', 'http://localhost:3000, "https://scheduling-platform.onrender.com','https://scheduling-platform.vercel.app',
+    'https://*.127.0.0.1','https://*.vercel.app', 'http://localhost:3000, "https://scheduling-platform.onrender.com','https://scheduling-platform.vercel.app',
     'https://scheduling-platform-bn3l.vercel.app'
 ]
 
@@ -99,8 +99,8 @@ SESSION_COOKIE_SAMESITE = None
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
-CSRF_COOKIE_DOMAIN = '.vercel.app'
-SESSION_COOKIE_DOMAIN = '.vercel.app'
+CSRF_COOKIE_DOMAIN = '*.vercel.app'
+SESSION_COOKIE_DOMAIN = '*.vercel.app'
 
 ROOT_URLCONF = 'booking_app.urls'
 
