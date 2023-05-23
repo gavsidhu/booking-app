@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['scheduling-platform.onrender.com','scheduling-platform.vercel.app',"localhost"]
+ALLOWED_HOSTS = ['scheduling-platform.onrender.com','scheduling-platform.vercel.app',"localhost", "scheduling-platform-bn3l.vercel.app"]
 
 
 # Application definition
@@ -82,10 +82,12 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8000',
     'http://127.0.0.1:3000',
-    'http://127.0.0.1:8000'
+    'http://127.0.0.1:8000',
+    "scheduling-platform-bn3l.vercel.app"
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.127.0.0.1', 'http://localhost:3000, "https://scheduling-platform.onrender.com','https://scheduling-platform.vercel.app'
+    'https://*.127.0.0.1', 'http://localhost:3000, "https://scheduling-platform.onrender.com','https://scheduling-platform.vercel.app',
+    'scheduling-platform-bn3l.vercel.app'
 ]
 
 CSRF_COOKIE_HTTPONLY = False
@@ -97,8 +99,8 @@ SESSION_COOKIE_SAMESITE = None
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
-CSRF_COOKIE_DOMAIN = 'scheduling-platform.vercel.app'
-SESSION_COOKIE_DOMAIN = 'scheduling-platform.vercel.app'
+CSRF_COOKIE_DOMAIN = 'scheduling-platform-bn3l.vercel.app'
+SESSION_COOKIE_DOMAIN = 'scheduling-platform-bn3l.vercel.app'
 
 ROOT_URLCONF = 'booking_app.urls'
 
