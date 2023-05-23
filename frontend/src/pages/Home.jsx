@@ -20,7 +20,7 @@ export default function Home() {
   const [selectedBookingType, setSelectedBookingType] = useState([]);
 
   useEffect(() => {
-    const csrftoken = getCookie("csrftoken");
+    const csrftoken = cookies.get("csrftoken");
     axios
       .get(`${process.env.REACT_APP_BACKEND_URl}/api/booking_type/`, {
         params: { user_id: user.userId },
