@@ -77,7 +77,7 @@ export default function Home() {
               );
             })}
         </div>
-        <BookingsTable bookingTypes={bookingTypes} />
+        {/* <BookingsTable bookingTypes={bookingTypes} /> */}
       </div>
     </>
   );
