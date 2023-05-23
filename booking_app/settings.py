@@ -74,7 +74,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     "https://scheduling-platform.onrender.com",
@@ -83,11 +83,11 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://127.0.0.1:3000',
     'http://127.0.0.1:8000',
-    "scheduling-platform-bn3l.vercel.app"
+    "https://scheduling-platform-bn3l.vercel.app"
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://*.127.0.0.1', 'http://localhost:3000, "https://scheduling-platform.onrender.com','https://scheduling-platform.vercel.app',
-    'scheduling-platform-bn3l.vercel.app'
+    'https://scheduling-platform-bn3l.vercel.app'
 ]
 
 CSRF_COOKIE_HTTPONLY = False
@@ -99,8 +99,7 @@ SESSION_COOKIE_SAMESITE = None
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
-CSRF_COOKIE_DOMAIN = 'scheduling-platform-bn3l.vercel.app'
-SESSION_COOKIE_DOMAIN = 'scheduling-platform-bn3l.vercel.app'
+
 
 ROOT_URLCONF = 'booking_app.urls'
 
