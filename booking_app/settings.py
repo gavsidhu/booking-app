@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['scheduling-platform.onrender.com','scheduling-platform.vercel.app',"localhost"]
 
 
 # Application definition
@@ -74,7 +74,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     "https://scheduling-platform.onrender.com",
@@ -84,24 +84,15 @@ CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:3000',
     'http://127.0.0.1:8000'
 ]
-
 CSRF_TRUSTED_ORIGINS = [
-    "https://scheduling-platform.onrender.com",
-    'https://scheduling-platform.vercel.app',
-    'https://*.127.0.0.1',
-    'http://localhost:3000'
+    'https://*.127.0.0.1', 'http://localhost:3000, "https://scheduling-platform.onrender.com','https://scheduling-platform.vercel.app'
 ]
 
 CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = None
 
 SESSION_COOKIE_HTTPONLY = False
-SESSION_COOKIE_SAMESITE = 'None'
-
-CSRF_COOKIE_PATH = '/'
-
-CSRF_COOKIE_DOMAIN = '.vercel.app'
-SESSION_COOKIE_DOMAIN = '.vercel.app'
+SESSION_COOKIE_SAMESITE = None
 
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
