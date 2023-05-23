@@ -99,7 +99,8 @@ SESSION_COOKIE_SAMESITE = None
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
-
+CSRF_COOKIE_DOMAIN = '.vercel.app'
+SESSION_COOKIE_DOMAIN = '.vercel.app'
 
 ROOT_URLCONF = 'booking_app.urls'
 
