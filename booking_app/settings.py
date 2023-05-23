@@ -97,6 +97,9 @@ SESSION_COOKIE_SAMESITE = None
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
+CSRF_COOKIE_DOMAIN = 'scheduling-platform.vercel.app'
+SESSION_COOKIE_DOMAIN = 'scheduling-platform.vercel.app'
+
 ROOT_URLCONF = 'booking_app.urls'
 
 TEMPLATES = [
