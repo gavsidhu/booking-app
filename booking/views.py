@@ -8,17 +8,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.permissions import AllowAny, DjangoModelPermissions
-from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.authtoken.models import Token
 
 
 class BookingView(viewsets.ModelViewSet):
     serializer_class = BookingSerializer
     queryset = Booking.objects.all()
-    authentication_classes=[SessionAuthentication]
-    permission_classes=[DjangoModelPermissions]
+    authentication_classes=[TokenAuthentication]
+    permission_classes=[IsAuthenticated]
 
     def get_queryset(self):
         user_id = self.request.query_params.get('user_id', None)
@@ -31,8 +32,8 @@ class BookingView(viewsets.ModelViewSet):
 class BookingTypeView(viewsets.ModelViewSet):
     serializer_class = BookingTypeSerializer
     queryset = BookingType.objects.all()
-    authentication_classes=[SessionAuthentication]
-    permission_classes=[DjangoModelPermissions]
+    authentication_classes=[TokenAuthentication]
+    permission_classes=[IsAuthenticated]
 
     def get_queryset(self):
         user_id = self.request.query_params.get('user_id', None)
@@ -67,28 +68,26 @@ def register(request):
             return JsonResponse({"error": "The username already exists. Please choose a different one."})
 
         user = User.objects.create_user(
-            email, password, first_name=first_name, last_name=last_name, username=username)
+        email, password, first_name=first_name, last_name=last_name, username=username)
         user.first_name = first_name
         user.last_name = last_name
         user.save()
 
-        # Log in the user for session & csrf token
-        login(request, user)
+        # Generate token
+        token, created = Token.objects.get_or_create(user=user)
+    
+        response_data = {
+        "message": "success", 
+        'status': 'success', 
+        "user_id": user.id, 
+        "email": user.email,
+        "username": user.username, 
+        "first_name": user.first_name, 
+        "last_name": user.last_name,
+        "token": token.key
+        }
 
-        # Get the csrf and session id in cookies
-        csrf_cookie = request.META['CSRF_COOKIE']
-        sessionid_cookie = request.session.session_key
-
-        # Create the response with user details
-        response_data = {"message": "success", 'status': 'success', "user_id": user.id, "email": user.email,
-                         "username": user.username, "first_name": user.first_name, "last_name": user.last_name, }
-        response = JsonResponse(response_data)
-
-        # Set the csrf and session id cookies
-        response.set_cookie('csrftoken', csrf_cookie, secure=True, samesite='None')
-        response.set_cookie('sessionid', sessionid_cookie, secure=True, samesite='None')
-
-        return response
+        return JsonResponse(response_data)
 
 
 @csrf_exempt
@@ -102,11 +101,22 @@ def auth_login(request):
         password = data.get('password')
 
         user = authenticate(request, username=email, password=password)
-        if user is not None:
-            login(request, user)
-            return JsonResponse({'status': 'success', "user_id": user.id, "email": user.email, "username": user.username, "first_name": user.first_name, "last_name": user.last_name, })
-        else:
-            return JsonResponse({'status': 'failure'})
+    if user is not None:
+
+        # Generate token
+        token, created = Token.objects.get_or_create(user=user)
+
+        return JsonResponse({
+            'status': 'success', 
+            "user_id": user.id, 
+            "email": user.email, 
+            "username": user.username, 
+            "first_name": user.first_name, 
+            "last_name": user.last_name, 
+            "token": token.key
+        })
+    else:
+        return JsonResponse({'status': 'failure'})
 
 
 @csrf_exempt
@@ -114,6 +124,7 @@ def auth_login(request):
 @permission_classes([AllowAny])
 @api_view(['POST'])
 def auth_logout(request):
+    Token.objects.filter(user=request.user).delete()
     logout(request)
     return JsonResponse({'status': 'success'})
 

@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://scheduling-platform.onrender.com",
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@testing-library/jest-dom": "^5.16.5",

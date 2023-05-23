@@ -20,6 +20,10 @@ export const UserProvider = ({ children }) => {
     try {
       if (user) {
         setUser(user);
+        const authToken = cookies.get("authToken");
+        if (authToken) {
+          axios.defaults.headers.common["Authorization"] = `Token ${authToken}`;
+        }
       } else {
         setUser(null);
       }
@@ -47,6 +51,10 @@ export const UserProvider = ({ children }) => {
         toast.error("Invalid credentials");
         return;
       }
+      console.log("login data:", response.data);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Token ${response.data.token}`;
       setUser({
         email: response.data.email,
         username: response.data.username,
@@ -60,7 +68,9 @@ export const UserProvider = ({ children }) => {
         firstName: response.data.first_name,
         lastName: response.data.last_name,
         userId: response.data.user_id,
+        token: response.data.token,
       });
+      cookies.set("authToken", response.data.token);
       navigate("/");
     } catch (error) {
       toast.error("There was an error");
@@ -109,7 +119,9 @@ export const UserProvider = ({ children }) => {
         firstName: response.data.first_name,
         lastName: response.data.last_name,
         userId: response.data.user_id,
+        token: response.data.token,
       });
+      cookies.set("authToken", response.data.token);
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -131,9 +143,8 @@ export const UserProvider = ({ children }) => {
     );
 
     // remove cookies
-    cookies.remove("csrftoken");
     cookies.remove("user");
-    cookies.remove("sessionid");
+    cookies.remove("authToken");
     setUser(null);
     navigate("/");
   };
