@@ -11,7 +11,7 @@ import Navbar from "../components/Navbar";
 const cookies = new Cookies();
 
 export default function Home() {
-  const { user } = useUser();
+  const { user, token } = useUser();
   const navigate = useNavigate();
   const [bookingTypes, setBookingTypes] = useState([]);
   const [bookingCardId, setBookingCardId] = useState();
@@ -24,6 +24,7 @@ export default function Home() {
         params: { user_id: user.userId },
         headers: {
           "X-CSRFToken": csrftoken,
+          Authorization: `Token ${token}`,
         },
         withCredentials: true,
       })
