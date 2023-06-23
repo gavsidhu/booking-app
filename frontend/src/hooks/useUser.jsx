@@ -10,13 +10,14 @@ const UserContext = createContext({
   user: null,
 });
 
+const getToken = () => cookies.get("authToken");
+const getUser = () => cookies.get("user");
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(getUser);
+  const [token, setToken] = useState(getToken);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // check if user is already stored in cookies
-    const user = cookies.get("user");
     try {
       if (user) {
         setUser(user);
