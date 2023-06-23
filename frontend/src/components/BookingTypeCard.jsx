@@ -7,6 +7,7 @@ import {
 } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import useUser from "../hooks/useUser";
+import { toast } from "react-toastify";
 export default function BookingTypeCard({
   name,
   description,
@@ -24,6 +25,7 @@ export default function BookingTypeCard({
     navigator.clipboard.writeText(
       `${process.env.REACT_APP_FRONTEND_URL}/${user.username}/bookings`
     );
+    toast.success("Copied to clipboard!");
   };
   return (
     <div
