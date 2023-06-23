@@ -20,7 +20,7 @@ export default function BookingsTable({ bookingTypes }) {
       .catch((error) => {
         console.error(error);
       });
-  }, [user]);
+  }, []);
 
   const handleDelete = async (id) => {
     await axios.delete(
@@ -33,17 +33,7 @@ export default function BookingsTable({ bookingTypes }) {
       }
     );
 
-    await axios
-      .get(`${process.env.REACT_APP_BACKEND_URl}/api/booking/`, {
-        params: { user_id: user.userId },
-        withCredentials: true,
-      })
-      .then((response) => {
-        setBookings(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    setBookings(bookings.filter((booking) => booking.id !== id));
   };
 
   const handleConfirm = async (id) => {
@@ -58,17 +48,14 @@ export default function BookingsTable({ bookingTypes }) {
       }
     );
 
-    await axios
-      .get(`${process.env.REACT_APP_BACKEND_URl}/api/booking/`, {
-        params: { user_id: user.userId },
-        withCredentials: true,
+    setBookings(
+      bookings.map((booking) => {
+        if (booking.id === id) {
+          return { ...booking, status: "Confirmed" };
+        }
+        return booking;
       })
-      .then((response) => {
-        setBookings(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    );
   };
 
   return (
