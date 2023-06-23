@@ -6,11 +6,14 @@ import { HiTrash } from "react-icons/hi2";
 
 export default function BookingsTable({ bookingTypes }) {
   const [bookings, setBookings] = useState([]);
-  const { user } = useUser();
+  const { user, token } = useUser();
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URl}/api/booking/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
         params: { user_id: user.userId },
         withCredentials: true,
       })
@@ -28,6 +31,7 @@ export default function BookingsTable({ bookingTypes }) {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
         },
         withCredentials: true,
       }
@@ -43,6 +47,7 @@ export default function BookingsTable({ bookingTypes }) {
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
         },
         withCredentials: true,
       }
