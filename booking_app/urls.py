@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from booking import views
 from rest_framework import routers
-from booking.views import register, auth_login, auth_logout, get_booking_types, schedule_booking
+from booking.views import register, auth_login, auth_logout, get_booking_types, schedule_booking, refresh_account_link, create_payment_account
 
 router = routers.DefaultRouter()
 router.register(r'booking', views.BookingView, 'booking')
 router.register(r'booking_type', views.BookingTypeView, 'booking_type')
 router.register(r'user', views.UserView, 'user')
+router.register(r'account', views.AccountView, 'account')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,5 +36,7 @@ urlpatterns = [
          get_booking_types, name='get_booking_types'),
     path('api/bookings/schedule_booking/',
          schedule_booking, name='schedule_booking'),
+    path('api/accounts/create_payment_account/', create_payment_account, name='create_payment_account'),
+    path('api/accounts/refresh_account_link/', refresh_account_link, name='refresh_account_link')
 
 ]

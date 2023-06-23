@@ -1,8 +1,10 @@
 import json
-from django.shortcuts import render
+import os
+import stripe
+from django.shortcuts import render, redirect
 from rest_framework import viewsets
-from .serializer import BookingSerializer, BookingTypeSerializer, UserSerializer
-from .models import Booking, BookingType, User
+from .serializer import BookingSerializer, BookingTypeSerializer, UserSerializer, AccountSerializer
+from .models import Booking, BookingType, User, Account
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
@@ -13,7 +15,11 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.authtoken.models import Token
+from dotenv import load_dotenv
 
+load_dotenv()
+
+stripe.api_key = os.getenv("STRIPE_API_KEY")
 
 class BookingView(viewsets.ModelViewSet):
     serializer_class = BookingSerializer
@@ -49,6 +55,10 @@ class BookingTypeView(viewsets.ModelViewSet):
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+
+class AccountView(viewsets.ModelViewSet):
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
 
 
 @csrf_exempt
@@ -228,3 +238,53 @@ def schedule_booking(request):
         return JsonResponse({"status": "success", "booking": booking_serializer.data})
     else:
         return JsonResponse({"status": "failure"})
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def create_payment_account(request):
+    user_email = request.data.get('email', None)
+
+    # Get the User object associated with email
+    user = User.objects.get(email=user_email)
+
+    # Check if an Account already exists for the user
+    account = Account.objects.filter(user=user).first()
+    if not account:
+        try:
+            # Create Stripe account only if an no account for user
+            acc = stripe.Account.create(
+                type="standard",
+                email=user_email
+            )
+
+            # Create Account
+            account = Account(user=user, account_id=acc.id)
+            account.save()
+
+        except Exception as e:
+            return JsonResponse({"status": "failure", "error": str(e)})
+
+    try:
+        # Create account link
+        account_link = stripe.AccountLink.create(
+            account=account.account_id,
+            refresh_url="http://localhost:8000/api/accounts/refresh_account_link",
+            return_url="http://localhost:3000/settings",
+            type="account_onboarding",
+        )
+    except Exception as e:
+        return JsonResponse({"status": "failure", "error": str(e)})
+
+    return JsonResponse({"url": account_link.url})
+
+def refresh_account_link(request):
+    account_id = request.data.get('account_id', None)
+
+    account_link = stripe.AccountLink.create(
+        account= account_id,
+        refresh_url="http://localhost:8000/api/refresh_account_link",
+        return_url="http://localhost:3000/settings",
+        type="account_onboarding",
+    )
+    return redirect(account_link.url)
