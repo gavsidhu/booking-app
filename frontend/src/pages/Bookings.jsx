@@ -39,9 +39,11 @@ export default function Bookings() {
       state: bookingType[0],
     });
   };
+  console.log(user);
   return (
     <>
       <div className='mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-40 lg:px-8'>
+        <h1 className='text-center text-3xl font-bold'>{`${user.first_name} ${user.last_name}'s bookings`}</h1>
         <div className='grid lg:grid-cols-3 gap-4 grid-cols-1 py-16'>
           {bookingTypes.map((bookingType) => {
             return (
