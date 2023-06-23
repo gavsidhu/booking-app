@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Booking, BookingType, User
+from .models import Booking, BookingType, User, Account
 
 
 class BookingSerializer(serializers.ModelSerializer):
@@ -17,4 +17,9 @@ class BookingTypeSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ("username", "first_name", "last_name", "email", "id")
+
+class AccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = '__all__'

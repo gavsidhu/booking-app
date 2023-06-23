@@ -81,11 +81,18 @@ class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     booking_type = models.ForeignKey(BookingType, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,)
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name} @ {self.start_at}"
 
+
+class Account(models.Model):
+    user = models.ForeignKey('User', on_delete=models.CASCADE, to_field="id")
+    account_id = models.CharField(db_index=True, max_length=100, null=False)
+
+    def __str__(self) -> str:
+        return self.account_id
 
 class Schedule(models.Model):
     pass
