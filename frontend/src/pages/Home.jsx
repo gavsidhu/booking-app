@@ -6,6 +6,7 @@ import axios from "axios";
 import useUser from "../hooks/useUser";
 import BookingsTable from "../components/BookingsTable";
 import Cookies from "universal-cookie";
+import Navbar from "../components/Navbar";
 
 const cookies = new Cookies();
 
@@ -46,9 +47,9 @@ export default function Home() {
   return (
     <>
       <div className='mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-40 lg:px-8'>
-        <PageHeading
-          heading='Dashboard'
-          buttonText='Create booking type'
+        <Navbar
+          heading={"Dashboard"}
+          buttonText={"Create booking type"}
           onClick={() => navigate("/new-booking-type")}
         />
         <div className='grid lg:grid-cols-3 gap-4 grid-cols-1 py-16'>
