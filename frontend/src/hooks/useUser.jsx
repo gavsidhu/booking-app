@@ -72,6 +72,7 @@ export const UserProvider = ({ children }) => {
         token: response.data.token,
       });
       cookies.set("authToken", response.data.token);
+      setToken(response.data.token);
       navigate("/");
     } catch (error) {
       toast.error("There was an error");
@@ -123,6 +124,7 @@ export const UserProvider = ({ children }) => {
         token: response.data.token,
       });
       cookies.set("authToken", response.data.token);
+      setToken(response.data.token);
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -147,6 +149,7 @@ export const UserProvider = ({ children }) => {
     cookies.remove("user");
     cookies.remove("authToken");
     setUser(null);
+    setToken(null);
     navigate("/");
   };
 
