@@ -18,14 +18,14 @@ function App() {
     <div className='App'>
       <ToastContainer
         position='top-right'
-        autoClose={3500}
-        hideProgressBar={false}
+        autoClose={2000}
+        hideProgressBar={true}
         newestOnTop={false}
-        closeOnClick={false}
+        closeOnClick={true}
         rtl={false}
-        pauseOnFocusLoss
+        pauseOnFocusLoss={false}
         draggable
-        pauseOnHover
+        pauseOnHover={false}
         theme='light'
       />
       <BrowserRouter>
