@@ -1,8 +1,8 @@
 import axios from "axios";
-import { Table } from "flowbite-react";
 import { useEffect, useState } from "react";
 import useUser from "../hooks/useUser";
 import moment from "moment";
+import { HiTrash } from "react-icons/hi2";
 
 export default function BookingsTable({ bookingTypes }) {
   const [bookings, setBookings] = useState([]);
@@ -20,7 +20,57 @@ export default function BookingsTable({ bookingTypes }) {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [user]);
+
+  const handleDelete = async (id) => {
+    await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URl}/api/booking/${id}/`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+
+    await axios
+      .get(`${process.env.REACT_APP_BACKEND_URl}/api/booking/`, {
+        params: { user_id: user.userId },
+        withCredentials: true,
+      })
+      .then((response) => {
+        setBookings(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleConfirm = async (id) => {
+    await axios.patch(
+      `${process.env.REACT_APP_BACKEND_URl}/api/booking/${id}/`,
+      { status: "Confirmed" },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+
+    await axios
+      .get(`${process.env.REACT_APP_BACKEND_URl}/api/booking/`, {
+        params: { user_id: user.userId },
+        withCredentials: true,
+      })
+      .then((response) => {
+        setBookings(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <div className='relative overflow-x-auto border-2 border-black sm:rounded-lg'>
       <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
@@ -45,7 +95,10 @@ export default function BookingsTable({ bookingTypes }) {
               Booking Type
             </th>
             <th scope='col' className='px-6 py-3'>
-              <span className='sr-only'>Edit</span>
+              <span className='sr-only'>Confirm</span>
+            </th>
+            <th scope='col' className='px-6 py-3'>
+              <span className='sr-only'>Delete</span>
             </th>
           </tr>
         </thead>
@@ -54,6 +107,7 @@ export default function BookingsTable({ bookingTypes }) {
             bookings.map((booking) => {
               return (
                 <tr
+                  id={booking.id}
                   key={booking.id}
                   className='bg-white border-b dark:bg-gray-900 dark:border-gray-700'
                 >
@@ -83,12 +137,22 @@ export default function BookingsTable({ bookingTypes }) {
                     }
                   </td>
                   <td className='px-6 py-4'>
-                    <a
-                      href='#'
-                      className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+                    {booking.status === "unconfirmed" && (
+                      <button
+                        onClick={() => handleConfirm(booking.id)}
+                        className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+                      >
+                        Confirm
+                      </button>
+                    )}
+                  </td>
+                  <td className='px-6 py-4'>
+                    <button
+                      onClick={() => handleDelete(booking.id)}
+                      className='font-medium text-red-600 dark:text-red-600'
                     >
-                      Edit
-                    </a>
+                      <HiTrash className='h-4 w-4' />
+                    </button>
                   </td>
                 </tr>
               );
