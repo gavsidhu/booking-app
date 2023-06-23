@@ -14,7 +14,7 @@ import axios from "axios";
 export default function UpdateBookingTypeForm() {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, token } = useUser();
   const { id } = useParams();
 
   const [formData, setFormData] = useState(state);
@@ -38,6 +38,7 @@ export default function UpdateBookingTypeForm() {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
           },
           withCredentials: true,
         }
@@ -55,6 +56,7 @@ export default function UpdateBookingTypeForm() {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
           },
           withCredentials: true,
         }

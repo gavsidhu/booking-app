@@ -15,7 +15,7 @@ const cookies = new Cookies();
 
 export default function NewBookingTypeForm() {
   const navigate = useNavigate();
-  const { user } = useUser();
+  const { user, token } = useUser();
   const [formData, setFormData] = useState({
     payment_required: false,
     color: "#000000",
@@ -40,6 +40,9 @@ export default function NewBookingTypeForm() {
       `${process.env.REACT_APP_BACKEND_URl}/api/booking_type/`,
       updatedFormData,
       {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
         withCredentials: true,
       }
     );

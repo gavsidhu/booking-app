@@ -33,7 +33,7 @@ export default function UpdateModal({
   id,
   bookingType,
 }) {
-  const { user } = useUser();
+  const { user, token } = useUser();
   const [formData, setFormData] = useState(initializeFormData(bookingType));
 
   useEffect(() => {
@@ -62,6 +62,7 @@ export default function UpdateModal({
           headers: {
             "X-CSRFToken": csrfToken,
             "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
           },
           withCredentials: true,
         }
@@ -82,6 +83,7 @@ export default function UpdateModal({
           headers: {
             "X-CSRFToken": csrfToken,
             "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
           },
           withCredentials: true,
         }
