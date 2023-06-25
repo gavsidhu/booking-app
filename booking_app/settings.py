@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,9 +87,12 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://scheduling-platform.vercel.app",
+    "https://scheduling-platform.vercel.app/",
     'https://scheduling-platform-bn3l.vercel.app'
 ]
+
+CSRF_COOKIE_SECURE= True
+CSRF_COOKIE_HTTPONLY: True
 
 ROOT_URLCONF = 'booking_app.urls'
 

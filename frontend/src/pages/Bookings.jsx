@@ -10,7 +10,7 @@ export default function Bookings() {
   const [bookingTypes, setBookingTypes] = useState([]);
   const [selectedBookingType, setSelectedBookingType] = useState([]);
   const [show, setShow] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     axios
@@ -43,7 +43,9 @@ export default function Bookings() {
   return (
     <>
       <div className='mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-40 lg:px-8'>
-        <h1 className='text-center text-3xl font-bold'>{`${user.first_name} ${user.last_name}'s bookings`}</h1>
+        {user != null && (
+          <h1 className='text-center text-3xl font-bold'>{`${user?.first_name} ${user?.last_name}'s bookings`}</h1>
+        )}
         <div className='grid lg:grid-cols-3 gap-4 grid-cols-1 py-16'>
           {bookingTypes.map((bookingType) => {
             return (

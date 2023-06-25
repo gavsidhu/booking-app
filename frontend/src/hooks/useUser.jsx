@@ -134,12 +134,14 @@ export const UserProvider = ({ children }) => {
 
   const logout = async () => {
     const csrfToken = cookies.get("csrftoken");
+    console.log(csrfToken);
     await axios.post(
       `${process.env.REACT_APP_BACKEND_URl}/api/logout/`,
       {},
       {
         headers: {
           "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
         },
         withCredentials: true,
       }
